@@ -42,7 +42,8 @@ function init()
 }
 
 /**
- * Normalizes the environment passed as the env var `NODE_ENV` and returns it
+ * Normalizes the environment passed as the env var `NODE_ENV` and returns it.  
+ * Automatically initializes this module if not already done.
  * @param {boolean} [colored=false] Set to `true` to color in the predefined env colors
  * @returns {Env}
  */
@@ -79,7 +80,7 @@ function isValidEnv(env)
 }
 
 /**
- * Grabs an environment dependent property
+ * Grabs an environment dependent property. Automatically initializes this module if not already done.
  * @param {EnvDependentProp} prop
  * @param {Env} [overrideEnv] Set to `prod` or `stage` to override the current env when resolving the property
  * @returns {EnvSettings[prop]}
@@ -89,6 +90,9 @@ function getProp(prop, overrideEnv)
 {
     try
     {
+        if(!initialized)
+            init();
+
         const env = isValidEnv(overrideEnv) ? overrideEnv : getEnv();
 
         return envSettings[env][prop];

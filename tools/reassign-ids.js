@@ -15,7 +15,7 @@ function reassignIds()
         let totalReassignedIDs = 0;
 
         fs.readdirSync(settings.jokes.jokesFolderPath).forEach(fName => {
-            if(fName.startsWith("template"))
+            if(fName.startsWith("template") || !fName.endsWith(".json"))
                 return;
 
             totalReassignedFiles++;

@@ -129,18 +129,16 @@ function compileDocs()
                         persistentData.brCompErrOnce = false;
 
                         if(settings.httpServer.encodings.gzip)
-                            saveEncoded("gzip", injectedFileNames[i], injected).catch(err => unused(err));
+                            saveEncoded("gzip", injectedFileNames[i], injected).then(() => {}).catch(err => unused(err));
                         if(settings.httpServer.encodings.deflate)
-                            saveEncoded("deflate", injectedFileNames[i], injected).catch(err => unused(err));
+                            saveEncoded("deflate", injectedFileNames[i], injected).then(() => {}).catch(err => unused(err));
                         if(settings.httpServer.encodings.brotli)
                         {
-                            saveEncoded("brotli", injectedFileNames[i], injected).catch(err => {
-                                unused(err);
-
+                            saveEncoded("brotli", injectedFileNames[i], injected).then(() => {}).catch(err => {
                                 if(!persistentData.brCompErrOnce)
                                 {
                                     persistentData.brCompErrOnce = true;
-                                    injectError(`Brotli compression is only supported since Node.js version 11.7.0 - current Node.js version is ${semver.clean(process.version)}`, false);
+                                    injectError(`Brotli compression is only supported since Node.js version 11.7.0 - current Node.js version is ${semver.clean(process.version)}\nError: ${err}`, false);
                                 }
                             });
                         }
@@ -232,7 +230,7 @@ function saveEncoded(encoding, filePath, content)
         case "brotli":
             if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
             {
-                zlib.brotliCompress(content, (res, err) => {
+                zlib.brotliCompress(content, (err, res) => {
                     if(!err)
                     {
                         fs.writeFile(`${filePath}.br`, res, err => {

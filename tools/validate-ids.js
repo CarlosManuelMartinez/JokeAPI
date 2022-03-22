@@ -27,10 +27,10 @@ try
     let notOk = 0;
 
     fs.readdirSync(settings.jokes.jokesFolderPath).forEach(fName => {
-        if(fName.startsWith("template"))
+        if(fName.startsWith("template") || !fName.endsWith(".json"))
             return;
 
-        let langCode = fName.split("-")[1].substr(0, 2);
+        let langCode = fName.split("-")[1].substring(0, 2);
 
         let filePath = resolve(join(settings.jokes.jokesFolderPath, fName));
 
@@ -83,5 +83,5 @@ try
 }
 catch(err)
 {
-    return exitWithError("General error while validating joke IDs", err);
+    exitWithError("General error while validating joke IDs", err);
 }
