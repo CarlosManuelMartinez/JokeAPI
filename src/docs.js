@@ -232,10 +232,10 @@ function saveEncoded(encoding, filePath, content)
         case "brotli":
             if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
             {
-                fs.writeFile(`${filePath}.gz`, (res, err) => {
+                zlib.brotliCompress(content, (res, err) => {
                     if(!err)
                     {
-                        fs.writeFile(`${filePath}.br`, (res, err) => {
+                        fs.writeFile(`${filePath}.br`, res, err => {
                             if(!err)
                                 return resolve();
                             else return reject(err);

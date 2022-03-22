@@ -59,7 +59,7 @@ function init()
         let parsedJokesAmount = 0;
 
         jokesFiles.forEach(jf => {
-            if(jf == settings.jokes.jokesTemplateFile)
+            if(jf === settings.jokes.jokesTemplateFile || !jf.endsWith(".json"))
                 return;
 
             outerPromises.push(new Promise((resolveOuter, rejectOuter) => {

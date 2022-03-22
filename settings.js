@@ -64,7 +64,7 @@ const settings = {
     /** General joke settings */
     jokes: {
         jokesFormatVersion: 3,             // current joke format version
-        jokesFolderPath: "./data/jokes/",  // path to the jokes folder - needs trailing slash
+        jokesFolderPath: "./joke-files/",  // path to the jokes folder - needs trailing slash
         jokeSubmissionURL: `${getProp("baseUrl")}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",         // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
