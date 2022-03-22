@@ -1,1 +1,0 @@
-## JokeAPI - Jokes Repository
