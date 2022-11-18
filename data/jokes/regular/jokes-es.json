@@ -12,7 +12,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 0,
             "safe": false
